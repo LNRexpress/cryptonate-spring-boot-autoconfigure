@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.nightsky</groupId>
     <artifactId>cryptonate-spring-boot-autoconfigure</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.nightsky</groupId>
             <artifactId>cryptonate</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <optional>true</optional>
         </dependency>
     </dependencies>
@@ -45,6 +45,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring-boot.version>2.6.6</spring-boot.version>
-        <keycache.version>1.0.0</keycache.version>
+        <keycache.version>1.1.0</keycache.version>
     </properties>
 </project>
