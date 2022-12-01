@@ -68,7 +68,7 @@ public class CryptonateAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnBean({ CryptoProperties.class, FipsSecureRandom.class })
+    @ConditionalOnBean(FipsSecureRandom.class)
     public CryptoEventListener cryptoEventListener(
         @Autowired CryptonateProperties properties,
         @Autowired CryptoProperties cryptoProperties,
