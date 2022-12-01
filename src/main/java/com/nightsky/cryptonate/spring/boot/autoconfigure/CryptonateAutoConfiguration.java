@@ -3,7 +3,6 @@ package com.nightsky.cryptonate.spring.boot.autoconfigure;
 import com.nightsky.cryptonate.event.listener.CryptoEventListener;
 import com.nightsky.keycache.VersionedSecretKeyCache;
 import com.nightsky.keycache.spring.boot.autoconfigure.KeyCacheAutoConfiguration;
-import com.nightsky.keycache.spring.boot.autoconfigure.KeyCacheProperties;
 import java.nio.charset.StandardCharsets;
 import java.rmi.dgc.VMID;
 import java.security.SecureRandom;
@@ -35,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass({ CryptoEventListener.class })
 @ConditionalOnBean({ VersionedSecretKeyCache.class })
 @AutoConfigureAfter({ HibernateJpaAutoConfiguration.class, KeyCacheAutoConfiguration.class })
-@EnableConfigurationProperties(CryptonateProperties.class)
+@EnableConfigurationProperties({ CryptoProperties.class, CryptonateProperties.class })
 public class CryptonateAutoConfiguration {
 
     @PersistenceUnit
@@ -69,17 +68,17 @@ public class CryptonateAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnBean({ KeyCacheProperties.class, FipsSecureRandom.class })
+    @ConditionalOnBean({ CryptoProperties.class, FipsSecureRandom.class })
     public CryptoEventListener cryptoEventListener(
         @Autowired CryptonateProperties properties,
-        @Autowired KeyCacheProperties keyCacheProperties,
+        @Autowired CryptoProperties cryptoProperties,
         @Autowired VersionedSecretKeyCache keyCache,
         @Autowired FipsSecureRandom cryptonateFipsSecureRandom)
     {
         CryptoEventListener listener = CryptoEventListener.builder()
             .withEncryptionKeyName(properties.getEncryptionKeyName())
-            .withKeyCodes(keyCacheProperties.getKeyDictionary().getKeyCodes())
-            .withKeyNames(keyCacheProperties.getKeyDictionary().getKeyNames())
+            .withKeyCodes(cryptoProperties.getKeyDictionary().getKeyCodes())
+            .withKeyNames(cryptoProperties.getKeyDictionary().getKeyNames())
             .withRNG(cryptonateFipsSecureRandom)
             .withVersionedSecretKeyCache(keyCache)
                 .build();
