@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.nightsky</groupId>
     <artifactId>cryptonate-spring-boot-autoconfigure</artifactId>
-    <version>1.0.1.1</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -23,9 +23,15 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bc-fips</artifactId>
+            <version>1.0.2.3</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>com.nightsky</groupId>
             <artifactId>cryptonate</artifactId>
-            <version>1.0.1</version>
+            <version>1.2.0</version>
             <optional>true</optional>
         </dependency>
     </dependencies>

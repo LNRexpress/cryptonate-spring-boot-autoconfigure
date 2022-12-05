@@ -10,8 +10,6 @@ public class CryptoKeyDictionary {
 
     private Map<String, Integer> keyCodes;
 
-    private Map<String, String> keyNames;
-
     public CryptoKeyDictionary() {
     }
 
@@ -27,20 +25,6 @@ public class CryptoKeyDictionary {
      */
     public void setKeyCodes(Map<String, Integer> keyCodes) {
         this.keyCodes = keyCodes;
-    }
-
-    /**
-     * @return the keyNames
-     */
-    public Map<String, String> getKeyNames() {
-        return keyNames;
-    }
-
-    /**
-     * @param keyNames the keyNames to set
-     */
-    public void setKeyNames(Map<String, String> keyNames) {
-        this.keyNames = keyNames;
     }
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.PersistenceUnit;
 import org.bouncycastle.crypto.CryptoServicesRegistrar;
 import org.bouncycastle.crypto.fips.FipsDRBG;
 import org.bouncycastle.crypto.fips.FipsSecureRandom;
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
@@ -42,6 +43,7 @@ public class CryptonateAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnClass({ FipsSecureRandom.class })
     @ConditionalOnProperty(prefix = "cryptonate", name = "rng-additional-data")
     public FipsSecureRandom cryptonateFipsSecureRandom(
         @Value("${cryptonate.rng-additional-data}") String additionalData)
@@ -78,9 +80,9 @@ public class CryptonateAutoConfiguration {
         CryptoEventListener listener = CryptoEventListener.builder()
             .withEncryptionKeyName(properties.getEncryptionKeyName())
             .withKeyCodes(cryptoProperties.getKeyDictionary().getKeyCodes())
-            .withKeyNames(cryptoProperties.getKeyDictionary().getKeyNames())
             .withRNG(cryptonateFipsSecureRandom)
             .withVersionedSecretKeyCache(keyCache)
+            .withSecurityProviderName(BouncyCastleFipsProvider.PROVIDER_NAME)
                 .build();
 
         registerLisener(listener);
