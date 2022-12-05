@@ -6,6 +6,7 @@ import com.nightsky.keycache.spring.boot.autoconfigure.KeyCacheAutoConfiguration
 import java.nio.charset.StandardCharsets;
 import java.rmi.dgc.VMID;
 import java.security.SecureRandom;
+import java.security.Security;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import org.bouncycastle.crypto.CryptoServicesRegistrar;
@@ -77,6 +78,10 @@ public class CryptonateAutoConfiguration {
         @Autowired VersionedSecretKeyCache keyCache,
         @Autowired FipsSecureRandom cryptonateFipsSecureRandom)
     {
+        if ( Security.getProvider(BouncyCastleFipsProvider.PROVIDER_NAME) == null ) {
+            Security.addProvider(new BouncyCastleFipsProvider());
+        }
+
         CryptoEventListener listener = CryptoEventListener.builder()
             .withEncryptionKeyName(properties.getEncryptionKeyName())
             .withKeyCodes(cryptoProperties.getKeyDictionary().getKeyCodes())
