@@ -66,8 +66,16 @@ crypto:
 cryptonate:
     encryption-key-name: sample-key
     rng-additional-data: Cryptonate Spring Boot Example
+spring:
+    jpa:
+        properties:
+            hibernate:
+                validator:
+                    apply_to_ddl: false
 
 ```
+
+The `spring.jpa.properties.hibernate.validator.apply_to_ddl` property has been included in the above sample configuration file. This configuration property is required as it disables translation of Hibernate's validation constraints into the database schema. [See here for additional information.](https://github.com/LNRexpress/cryptonate#disable-translation-of-hibernate-validation-constraints-into-the-database-schema)
 
 ### Database Writes During Application Start-up
 
